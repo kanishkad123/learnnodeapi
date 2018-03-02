@@ -28,4 +28,22 @@ router.get('/getallinstruments', VerifyToken, function (req, res, next) {
     });
 });
 
+router.get('/getInstrumentById/:id', VerifyToken, function (req, res, next) {
+    instrument.findOne({instrumentID:req.params.id}, function (err, instrument) {
+        if (err) return res.status(500).send("There was a problem finding the instruments.");
+        if (!instrument) return res.status(404).send("No instruments found.");
+        res.status(200).send(instrument);
+    });
+});
+
+router.put('/updateInstrument/:id', VerifyToken, function (req, res, next) {
+    instrument.findOneAndUpdate({instrumentID:req.params.id},
+        {instrumentName:req.body.instrumentName,instrumentDescription:req.body.instrumentDescription},
+        function (err, instrument) {
+        if (err) return res.status(500).send("There was a problem finding the instruments and updating it.");
+        if (!instrument) return res.status(404).send("No instruments found.");
+        res.status(200).send(instrument);
+    });
+});
+
 module.exports = router;

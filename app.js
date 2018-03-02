@@ -17,4 +17,7 @@ app.use('/api/instruments',InstrumentController);
 var GenericJobController = require('./jobRelated/genericJob/genericJobController');
 app.use('/api/genericjob',GenericJobController);
 
+var FileUploadController = require('./jobRelated/FileUpload/fileUploadController');
+app.use('/api/fileupload',FileUploadController);
+
 module.exports = app;
