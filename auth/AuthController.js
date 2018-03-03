@@ -12,7 +12,6 @@ var config = require('../config');
 
 
 router.post('/register', function (req, res) {
-
     var hashedPassword = bcrypt.hashSync(req.body.password, 8);
 
     User.create({
@@ -53,7 +52,6 @@ router.get('/getallusers', VerifyToken, function (req, res, next) {
 router.post('/login', function (req, res) {
     User.findOne({ email: req.body.email }, function (err, user) {
         if (err) return res.status(500).send('Error on the server.');
-        console.log(req.body);
         if (!user) return res.status(404).send('No user found. Please enter correct emailID');
 
         var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
